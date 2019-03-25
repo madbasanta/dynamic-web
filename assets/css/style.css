@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+.navLink li a {
+	color: #343a40;
+	text-decoration: none;
+	font-weight: bolder;
+	transition: 200ms;
+	letter-spacing: 1px;
+}
+.navLink li a:hover {
+	text-decoration: none;
+	color: #ff5252;
+}
+.navLink li.active a {
+	color : #ff5252;;
+}
+.logo-text {
+	color: #ff5252;
+	font-weight: bold;
+}
+#main-top-nav {
+	/*background-color: lightgray;*/
+	box-shadow: 1px 0 3px 1px gray;
+}
+.lazyload {
+	padding-bottom: 20%;
+}
+
+/*
+SOCIAL ICONS
+*/
+.socials .social-icon .fab {
+	padding: 5px 8px;
+	margin: 0 5px;
+}
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+.text-orange {
+	color : #ff5252;
+}
+.bg-orange {
+	background-color : #ff5252;
+}
+
+p {
+	line-height: 1.25em;
+}
+.form-control:focus{
+	-webkit-box-shadow: unset;
+	box-shadow: unset;
+}
+
+.auth.dropdown:hover .dropdown-menu {
+	display: block;
+	top: 35px;
+	right: 0;
+}
