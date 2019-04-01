@@ -6,7 +6,7 @@ class LoginController extends Controller
 {
 	function __construct($method) {
 		if(auth() && $method !== 'logout')
-			redirect(session('http_previous_uri'));
+			redirect('/	');
 	}
 
 	// login form / page
@@ -24,21 +24,26 @@ class LoginController extends Controller
 			'password' => sha1($request->input('pwd'))
 		])->first();
 		if($user) {
-			session(['my_app_auth' => $user]);
-			redirect('/');
+			if($request->input('page') === 'adminlogin' && !in_array($user->role, ['user'])) {
+				session(['my_app_auth' => $user]);
+				redirect('admin');
+			} elseif ($request->input('page') === 'login') {
+				session(['my_app_auth' => $user]);
+				redirect('/');
+			}
 		}
-		session(['errors' => ['username' => 'Username or password did not matched.']]);
+		session(['errors' => ['username' => ['Username or password did not matched.']]]);
 		redirect(session('http_previous_uri'));
 	}
 
 	// Request validator
 	function validateRequest(Request $request) {
 		$validator = $this->validate($request, [
-			'username' => 'required',
+			'username' => 'required|exists:users,email',
 			'pwd' => 'required'
 		]);
 		if($validator->hasInvalidField()) {
-			session(['errors' => $validator->bag()]);
+			session(['errors' => $validator->singleBag()]);
 			session(['old' => $validator->validated()]);
 			redirect(session('http_previous_uri'));
 		}
@@ -47,5 +52,9 @@ class LoginController extends Controller
 	function logout() {
 		session()->forget('my_app_auth');
 		redirect(session('http_previous_uri'));
+	}
+
+	function adminLogin() {
+		return view('auth/adminLogin');
 	}
 }

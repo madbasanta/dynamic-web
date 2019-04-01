@@ -24,7 +24,7 @@
 									<img data-lazy="assets/img/product00.jpg" class="img-fluid">
 								</div>
 								<div class="col-md-9">
-									<h3>Blog title of the current scenario</h3>
+									<h5>Blog title of the current scenario</h5>
 									<p class="mb-1">
 										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius assumenda rerum voluptate laboriosam aspernatur fuga impedit qui natus pariatur quaerat, ipsam, doloribus praesentium nesciunt id.
 									</p>

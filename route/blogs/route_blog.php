@@ -1,5 +1,6 @@
 <?php
-$controller = 'blog/BlogShowController';
 
-Route::get('blogs', join('@', [$controller, 'blogs']));
-Route::get('blogs/{slug}', join('@', [$controller, 'show']));
+Route::get('blogs', 'blog/BlogShowController@blogs');
+Route::get('blogs/{slug}', 'blog/BlogShowController@show');
+
+Route::get('courses', 'blog/BlogShowController@courses');

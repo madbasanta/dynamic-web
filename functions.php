@@ -74,6 +74,18 @@ function is_valid($key) {
 		return 'is-valid';
 	return '';
 }
+// error message 
+function error_msg($key) {
+	$message = '';
+	if(!isset(session('errors')[$key])) return $message;
+	$errors = session('errors')[$key];
+	$errors = is_array($errors) ? $errors : [$errors];
+	foreach (session('errors')[$key] as $msg) {
+		$msg = preg_replace('#_#', ' ', $msg);
+		$message .= '<span class="text-danger">'.ucfirst($msg).'.</span>&nbsp;';
+	}
+	return $message;
+}
 // load old data from session 
 function old($key) {
 	return isset(session('old')[$key]) ? session('old')[$key] : null;

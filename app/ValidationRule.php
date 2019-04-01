@@ -1,3 +1,5 @@
+
+
 <?php
 _model('Model');
 
@@ -51,11 +53,28 @@ trait ValidationRule
 		}
 		return true;
 	}
+	function string($key) {
+		if($this->is_nullable($key))
+			return true;
+		if(preg_match('#^[a-zA-Z]+$#', $this->request->input($key))) {
+			return true;
+		}
+		return  ['message' => $key . ' must be an valid string'];
+	}
 	function numeric($key) {
 		if($this->is_nullable($key))
 			return true;
 		if(is_numeric($this->request->input($key))) return true;
 		return ['message' => $key . ' must be an valid numeric value'];
+	}
+	function exists($key, $params) {
+		$params = explode(',', $params);
+		$column = isset($params[1]) ? $params[1] : $key;
+		$table = $params[0];
+		$d = Model::table($table)->where([$column => $this->request->input($key)])->get();
+		if ($d->num_rows === 0) {
+			return ['message' => $key . ' doesn\'t exists'];
+		}
 	}
 	function nullable($key) {
 		$this->null($key);

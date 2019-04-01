@@ -1,20 +1,31 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+/*@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');*/
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('/assets/css/bootstrap.4.2.1.css');
+@import url('/assets/css/courses.css');
 body {
-	font-family: 'Source Sans Pro', sans-serif;
+	font-family: 'Poppins', sans-serif;
+	font-size: 13px;
+	/*font-family: 'Source Sans Pro', sans-serif;*/
+	/*margin-bottom: 85px;*/
+}
+#sticky-footer small {
+	font-size: 13px;
 }
 .navLink li a {
-	color: #343a40;
-	text-decoration: none;
+	color: #343a40 !important;
 	font-weight: bolder;
 	transition: 200ms;
 	letter-spacing: 1px;
+	/*padding-left: 0.7rem !important;*/
+	/*padding-right: 0.6rem !important;*/
+	padding: 0 !important;
+	margin-left: 1.2rem;
 }
 .navLink li a:hover {
-	text-decoration: none;
-	color: #ff5252;
+	color: #ff5252 !important;
 }
 .navLink li.active a {
-	color : #ff5252;;
+	color : #ff5252 !important;
 }
 .logo-text {
 	color: #ff5252;
@@ -56,15 +67,40 @@ SOCIAL ICONS
 }
 
 p {
-	line-height: 1.25em;
+	line-height: 1.5em;
+	font-size: 14px;
 }
 .form-control:focus{
 	-webkit-box-shadow: unset;
 	box-shadow: unset;
 }
 
+.auth.dropdown .dropdown-menu li a {
+	text-decoration: none;
+	color: #343a40;
+}
+
+.auth.dropdown .dropdown-menu li a:hover {
+	color: #ff5252;
+}
+
 .auth.dropdown:hover .dropdown-menu {
 	display: block;
+	position: absolute;
 	top: 35px;
 	right: 0;
+}
+
+.box-shadow-card {
+	box-shadow: 0 2px 3px 0 gray;
+}
+
+.bottomMessageClose {
+	position: absolute;
+	right: 20px;
+	top: -25px;
+	font-size: 14px;
+	background-color: red;
+	padding: 5px 8px;
+	cursor: pointer;
 }

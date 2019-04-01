@@ -12,4 +12,9 @@ class BlogShowController
 		}
 		return $slug;
 	}
+
+	// courses
+	function courses() {
+		return view('course/courses');
+	}
 }

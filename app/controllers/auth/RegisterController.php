@@ -29,8 +29,8 @@ class RegisterController extends Controller
 	// validate request data
 	function validateData(Request $request) {
 		$validator = $this->validate($request, [
-			'first_name' => 'required',
-			'last_name' => 'required',
+			'first_name' => 'required|string',
+			'last_name' => 'required|string',
 			'email' => 'required|email|unique:users,email',
 			'phone' => 'nullable|unique:users,phone|numeric',
 			'password' => 'confirmed:password_confirmation|min:8'

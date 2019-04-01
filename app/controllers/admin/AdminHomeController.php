@@ -2,13 +2,13 @@
 class AdminHomeController 
 {
 	public function __construct() {
-		if (!auth()) {
-			redirect('sign-in');
+		if (!auth() || auth('role') === 'user') {
+			redirect('admin/login');
 		}
 	}
 
 	public function dashboard() {
-		return view('admin/dashboard');
+		return view('admin/dashboard1');
 	}
 
 	function blogs() {

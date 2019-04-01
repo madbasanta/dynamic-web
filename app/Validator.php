@@ -47,7 +47,7 @@ class Validator
 		$this->valid[$key] = $value;
 	}
 	function put($key, $message) {
-		$this->bag[$key] = $message;
+		$this->bag[$key][] = $message;
 	}
 	function hasInvalidField() {
 		return count($this->bag);
@@ -55,10 +55,20 @@ class Validator
 	function bag() {
 		return $this->bag;
 	}
+	function singleBag() {
+		$errors = [];
+		foreach ($this->bag as $key => $value) {
+			$errors[$key] = [array_shift($value)];
+		}
+		return $errors;
+	}
 	function validated() {
 		return $this->valid;
 	}
 	function null($key) {
 		$this->nullables[] = $key;
+		if(!$this->request->input($key)) {
+			unset($this->bag[$key]);
+		}
 	}
 }
