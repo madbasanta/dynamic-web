@@ -1,0 +1,116 @@
+
+body {
+	font-family: 'Poppins', sans-serif;
+	font-size: 13px;
+	/*font-family: 'Source Sans Pro', sans-serif;*/
+	/*margin-bottom: 85px;*/
+}
+body::-webkit-scrollbar,
+.custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+ 
+body::-webkit-scrollbar-track,
+.custom-scrollbar::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+body::-webkit-scrollbar-thumb,
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #ff5252;
+  outline: 1px solid slategrey;
+}
+#sticky-footer small {
+	font-size: 13px;
+}
+.navLink li a {
+	color: #343a40 !important;
+	font-weight: bolder;
+	transition: 200ms;
+	letter-spacing: 1px;
+	/*padding-left: 0.7rem !important;*/
+	/*padding-right: 0.6rem !important;*/
+	padding: 0 !important;
+	margin-left: 1.2rem;
+}
+.navLink li a:hover {
+	color: #ff5252 !important;
+}
+.navLink li.active a {
+	color : #ff5252 !important;
+}
+.logo-text {
+	color: #ff5252;
+	font-weight: bold;
+}
+#main-top-nav {
+	/*background-color: lightgray;*/
+	box-shadow: 1px 0 3px 1px gray;
+}
+
+/*
+SOCIAL ICONS
+*/
+.socials .social-icon .fab {
+	padding: 5px 8px;
+	margin: 0 5px;
+}
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+.text-orange {
+	color : #ff5252;
+}
+.bg-orange {
+	background-color : #ff5252;
+}
+
+p {
+	line-height: 1.5em;
+	font-size: 14px;
+}
+.form-control:focus, .btn:focus,.btn:active{
+	-webkit-box-shadow: unset;
+	box-shadow: unset;
+}
+
+.auth.dropdown .dropdown-menu .dropdown-item a {
+	text-decoration: none;
+	color: #343a40;
+	font-size: 12px;
+}
+
+.auth.dropdown .dropdown-menu .dropdown-item a:hover {
+	color: #ff5252;
+}
+
+.auth.dropdown:hover .dropdown-menu {
+	display: inline-block;
+	/*position: absolute;*/
+	top: 18px;
+	right: 0;
+}
+
+.box-shadow-card {
+	box-shadow: 0 2px 3px 0 gray;
+}
+
+span.bottomMessageClose {
+	position: absolute;
+	right: 20px;
+	top: -25px;
+	font-size: 14px;
+	background-color: orangered;
+	padding: 5px 8px;
+	cursor: pointer;
+}

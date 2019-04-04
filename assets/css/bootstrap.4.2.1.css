@@ -9,9 +9,8 @@
 }
 
 .bg-image {
-  background-image: url('https://source.unsplash.com/WEQbe2jBg40/600x1200');
+  background: url("/assets/img/contact-image.jpg") top no-repeat;
   background-size: cover;
-  background-position: center;
 }
 
 .login-heading {
@@ -31,7 +30,8 @@
 }
 
 .form-label-group>input,
-.form-label-group>label {
+.form-label-group>label,
+.form-label-group>textarea {
   padding: var(--input-padding-y) var(--input-padding-x);
   height: auto;
   border-radius: 2rem;
@@ -54,32 +54,39 @@
   transition: all .1s ease-in-out;
 }
 
-.form-label-group input::-webkit-input-placeholder {
+.form-label-group input::-webkit-input-placeholder,
+.form-label-group textarea::-webkit-input-placeholder, {
   color: transparent;
 }
 
-.form-label-group input:-ms-input-placeholder {
+.form-label-group input:-ms-input-placeholder,
+.form-label-group textarea:-ms-input-placeholder {
   color: transparent;
 }
 
-.form-label-group input::-ms-input-placeholder {
+.form-label-group input::-ms-input-placeholder,
+.form-label-group textarea::-ms-input-placeholder {
   color: transparent;
 }
 
-.form-label-group input::-moz-placeholder {
+.form-label-group input::-moz-placeholder,
+.form-label-group textarea::-moz-placeholder {
   color: transparent;
 }
 
-.form-label-group input::placeholder {
+.form-label-group input::placeholder,
+.form-label-group textarea::placeholder {
   color: transparent;
 }
 
-.form-label-group input:not(:placeholder-shown) {
+.form-label-group input:not(:placeholder-shown),
+.form-label-group textarea:not(:placeholder-shown) {
   padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
   padding-bottom: calc(var(--input-padding-y) / 3);
 }
 
-.form-label-group input:not(:placeholder-shown)~label {
+.form-label-group input:not(:placeholder-shown)~label,
+.form-label-group textarea:not(:placeholder-shown)~label {
   padding-top: calc(var(--input-padding-y) / 3);
   padding-bottom: calc(var(--input-padding-y) / 3);
   font-size: 12px;

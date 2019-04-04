@@ -4,6 +4,8 @@ Route::get('/', 'HomeController@index');
 
 Route::get('404-page-not-found', 'HomeController@page404');
 
-Route::get('about-us', 'HomeController@aboutUs');
+Route::get('contact-us', 'HomeController@contactUs');
 
-// Route::get('test', 'HomeController@test');
+Route::post('enquiry/save', 'HomeController@saveEnquiry');
+
+Route::get('terms-and-condtions', 'HomeController@termsAndCondition');

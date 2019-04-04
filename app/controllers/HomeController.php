@@ -1,5 +1,6 @@
 <?php
 require 'Controller.php';
+_model('Enquiry');
 
 class HomeController extends Controller
 {
@@ -13,12 +14,33 @@ class HomeController extends Controller
 		return view('404');
 	}
 
-	// about-us page
-	function aboutUs() {
-		return view('about-us');
+	// contact-us page
+	function contactUs() {
+		return view('contact-us');
+	}
+	// contact-us form submit function
+	function saveEnquiry(Request $request) {
+		$this->validateRequest($request);
+		$enq = Enquiry::create($request->all());
+		session(['message' => 'You message is submitted successfully.']);
+		return redirect(session('http_previous_uri'));
 	}
 
-	function test() {
-		return view('test');
+	private function validateRequest(Request $request) {
+		$v = $this->validate($request, [
+			'name' => 'required',
+			'email' => 'required|email',
+			'phone' => 'required|numeric',
+			'message' => 'required|min:10'
+		]);
+		if($v->hasInvalidField()) {
+			session(['old' => $v->validated()]);
+			session(['errors' => $v->bag()]);
+			redirect(session('http_previous_uri'));
+		}
+	}
+
+	function termsAndCondition() {
+		return view('terms-and-condition');
 	}
 }

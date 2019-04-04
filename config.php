@@ -1,7 +1,7 @@
 <?php
 return [
-	'app_name' => 'FTP Softwarica',
-	'app_email' => 'info@softwarica.com',
+	'app_name' => 'Curious Cybersecurity',
+	'app_email' => 'curiouscybersecurity@gmail.com',
 	'app_contact' => '01-5544-665',
 	'socials' => [
 		'facebook' => 'https://facebook.com/softwarica.nepal/', 

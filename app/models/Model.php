@@ -17,6 +17,11 @@ class Model extends BaseModel
 		return $model;
 	}
 
+	static function create($arr = []) {
+		$me = new static($arr);
+		return $me->save();
+	}
+
 	function setFields($data) {
 		foreach ($this->fillable as $key)
 			if(isset($data[$key])) {

@@ -2,7 +2,7 @@
     LAZY LOADING IMAGE
 */
 
-const targets = document.querySelectorAll('img');
+const targets = document.querySelectorAll('img[data-lazy]');
 const lazyload = target => {
     const io = new IntersectionObserver((entries, observer) => {
         // console.log(entries);
@@ -13,7 +13,8 @@ const lazyload = target => {
                 const src = img.getAttribute('data-lazy');
 
                 img.src = src;
-                // img.parentElement.classList.remove('lazyload');
+                $(img).css({"max-height": $(img.parentElement).innerHeight()});
+                img.parentElement.style = '';
                 observer.disconnect();
             }
         });
@@ -78,18 +79,48 @@ $(function() {
     if(login_attempt > 3) {
         $('#sign-in-submit').prop('disabled', true);
     }
-
-    $('.bookCourse').on('click', function(e) {
-        let holder = $('#bottomMessage');
-        if(holder.is(':visible')) {
-            holder.slideUp(function() {
-                holder.slideDown();
-            });
-        } else {
-            holder.slideDown();
-        }
-    });
-    $('.bottomMessageClose').on('click', function() {
-        $('#bottomMessage').slideUp();
-    });
 });
+
+/*
+    MODAL JS
+*/
+
+function confirm_action(props) {
+    props.btn = props.btn || 'btn-danger';
+    props.width = props.width ? 'max-width:'+ props.width : '';
+    let modal_id = (new Date()).getTime();
+    props.body = props.body || '';
+    let body = `<!-- The Modal -->
+                    <div class="modal confirm_action_modal" id="confirm-${modal_id}">
+                      <div class="modal-dialog" style="${props.width}">
+                        <div class="modal-content">
+
+                          <!-- Modal Header -->
+                          <div class="modal-header bg-primary" style="border-bottom: 4px solid #ff5252;">
+                            <h4 class="modal-title w-100 text-white text-center my-2">${props.title}</h4>
+                            <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                          </div>
+
+                          <!-- Modal body -->
+                          <div class="modal-body p-5">
+                                ${props.body}
+                          </div>
+                        </div>
+                      </div>
+                    </div>`;
+
+    props.fresh = props.fresh || true;
+    if(props.fresh) {
+        $('body .confirm_action_modal').remove();
+    }
+    $('body').append(body);
+    if(props.get) {
+        $.get(props.get).then(function(response) {
+            let modal = $('#confirm-'+ modal_id);
+            modal.find('.modal-body').html(response);
+            modal.modal('show');
+        });
+    } else {
+        $('#confirm-'+ modal_id).modal('show');
+    }
+}
