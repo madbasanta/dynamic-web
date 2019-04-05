@@ -1,4 +1,4 @@
-<?php _include('inc/micro_header'); ?>
+<?php //_include('inc/micro_header'); ?>
 <header>
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-md navbar-light bg-light static-top" id="main-top-nav">
@@ -29,11 +29,11 @@
 						<a class="nav-link" href="/contact-us">Contact Us</a>
 					</li>
 					<!-- Our approach -->
-					<li class="nav-item <?= isset($contact)?'active':'' ?>">
+					<li class="nav-item <?= isset($our_approach)?'active':'' ?>">
 						<a class="nav-link" href="/our-approach">Our Approach</a>
 					</li>
 					<!-- Location -->
-					<li class="nav-item <?= isset($contact)?'active':'' ?>">
+					<li class="nav-item <?= isset($location)?'active':'' ?>">
 						<a class="nav-link" href="/location">Location</a>
 					</li>
 				</ul>

@@ -1,6 +1,6 @@
 <?php
 return [
-	'app_name' => 'Curious Cybersecurity',
+	'app_name' => 'Curious <span class="text-orange">Cyber</span>security',
 	'app_email' => 'curiouscybersecurity@gmail.com',
 	'app_contact' => '01-5544-665',
 	'socials' => [

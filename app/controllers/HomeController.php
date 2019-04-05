@@ -14,6 +14,11 @@ class HomeController extends Controller
 		return view('404');
 	}
 
+	// location page
+	function location() {
+		return view('location');
+	}
+
 	// contact-us page
 	function contactUs() {
 		return view('contact-us');

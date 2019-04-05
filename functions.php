@@ -18,10 +18,10 @@ function view($path, $data = []) {
 
 $config = include('config.php');
 // get config data
-function config($key) {
+function config($key, $strip_tags = false) {
 	global $config;
 	if(isset($config[$key]))
-		return $config[$key];
+		return !$strip_tags ? $config[$key] : strip_tags($config[$key]);
 	return null;
 }
 

@@ -2,5 +2,8 @@
 
 Route::get('services', 'service/ServiceShowController@services');
 
-Route::get('services/audio', 'services/ServiceShowController@audio');
-Route::get('services/video', 'services/ServiceShowController@video');
+Route::get('services/audio', 'service/ServiceShowController@audio');
+Route::get('services/video', 'service/ServiceShowController@video');
+
+
+Route::get('our-approach', 'service/ServiceShowController@trainings');

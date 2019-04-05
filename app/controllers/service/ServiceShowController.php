@@ -15,4 +15,11 @@ class ServiceShowController
 	function video() {
 		return view('services/video');
 	}
+
+	/*
+		offerred trainings
+	*/
+	function trainings() {
+		return view('training/courses');
+	}
 }

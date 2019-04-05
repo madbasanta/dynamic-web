@@ -48,7 +48,7 @@
 
 		$('#cookie-accept').on('click', function() {
 			let time = (new Date()).getTime();
-			setCookie('cookie_accepted', time, time + 300);
+			setCookie('cookie_accepted', time, 5);
 			$('#bottomMessage').slideUp(400);
 		});
 		// setCookie('cookie_accepted', 'expire', 0);
