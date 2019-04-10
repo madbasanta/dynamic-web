@@ -14,3 +14,16 @@ Route::post('log-out', 'auth/LoginController@logout');
 */
 Route::get('admin/login', 'auth/LoginController@adminLogin');
 Route::post('admin/sign-in', 'auth/LoginController@signIn');
+
+
+/*
+	FORGET PASSWORD
+*/
+
+Route::get('forget-password', 'auth/PasswordResetController@form');
+Route::post('forget-password', 'auth/PasswordResetController@forgetPassword');
+
+Route::get('reset-password', 'auth/PasswordResetController@resetForm');
+Route::post('reset-password', 'auth/PasswordResetController@resetPassword');
+
+

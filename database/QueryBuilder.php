@@ -5,7 +5,7 @@ class QueryBuilder
 	private $pdo;
 	private $create = 'insert into %s(%s) values(%s)';
 	private $read = 'select %s from %s where %s';
-	private $update = 'update %s set $s where %s';
+	private $update = 'update %s set %s where %s';
 	private $query;
 	private $result;
 	private $model;
@@ -53,6 +53,7 @@ class QueryBuilder
 		foreach($data as $column => $value)
 			$values .= " $column = '$value',";
 		$exp = $this->conditionString($conditions);
+
 		$this->query = sprintf($this->update, $table, rtrim($values, ','), $exp);
 	}
 
@@ -64,7 +65,7 @@ class QueryBuilder
 	}
 
 	function execute() {
-		// debugger($this->query);
+		// dd($this->query);
 		return $this->run();
 	}
 
@@ -72,14 +73,14 @@ class QueryBuilder
 		return $this->result;
 	}
 	function first_result() {
-		return isset($this->result[0]) ? $this->result : null;
+		return isset($this->result[0]) ? $this->result[0] : null;
 	}
 
 	function escape_string($un_escaped) {
 		return $this->pdo->real_escape_string($un_escaped);
 	}
-	function conditionString($conditions) {
-		$exp = '1 = 1';
+	function conditionString($conditions = [1 => 1]) {
+		$exp = '';
 		foreach($conditions as $key => $value)
 			$exp .= " $key = '$value' AND";
 		return rtrim($exp, 'AND');

@@ -13,7 +13,7 @@ return [
 	'database' => [
 		'host' => 'localhost',
 		'username' => 'root',
-		'password' => '',
+		'password' => 'root',
 		'db_name' => 'db_college',
 		'options' => []
 	]

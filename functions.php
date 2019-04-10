@@ -1,4 +1,7 @@
 <?php
+function dd(...$args) {
+	debugger(...$args);
+}
 // debugger function for testing variables
 function debugger(...$args)
 {

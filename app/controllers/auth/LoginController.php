@@ -18,12 +18,16 @@ class LoginController extends Controller
 	function signIn(Request $request) {
 		// validate login request for username and password
 		$this->validateRequest($request);
-		$user = new User();
-		$user = $user->where([
+		$user = User::where([
 			'email' => $request->input('username'), 
 			'password' => sha1($request->input('pwd'))
 		])->first();
+
 		if($user) {
+			/*
+			check if user is login in from admin page and is really a admin if true opens dashboard
+			if user is authenticated but not admin then redirects to home page
+			*/
 			if($request->input('page') === 'adminlogin' && !in_array($user->role, ['user'])) {
 				session(['my_app_auth' => $user]);
 				redirect('admin');
@@ -32,7 +36,7 @@ class LoginController extends Controller
 				redirect('/');
 			}
 		}
-		session(['errors' => ['username' => ['Username or password did not matched.']]]);
+		session(['errors' => ['username' => ['Username or password did not matched']]]);
 		redirect(session('http_previous_uri'));
 	}
 

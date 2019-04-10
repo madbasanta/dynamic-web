@@ -16,13 +16,11 @@ html, body {
 .page-wrap:after{
   content: "";
   display: block;
+  height: 143px;
 }
 .site-footer {
   /* .push must be the same height as footer */
     height: 143px; 
-}
-.site-footer {
-  background: orange;
 }
 body::-webkit-scrollbar,
 .custom-scrollbar::-webkit-scrollbar {

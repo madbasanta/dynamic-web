@@ -65,7 +65,7 @@ class BaseModel
 		$this->setFields($data);
 		$this->builder->createUpdateQuery($this->table, $this->fields, $this->exp);
 		$this->builder->execute();
-		return $this->builder->getResult();
+		return $this->builder->result();
 	}
 
 	function _select($column) {

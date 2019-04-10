@@ -20,7 +20,7 @@
 						<div class="mt-4">
 							<form action="javascript:void(0)" id="get-started-form">
 								<div class="row">
-									<div class="col-sm-4">
+									<div class="col-sm-8 col-md-6 col-lg-4">
 										<div class="form-group mb-sm-0">
 											<input type="email" name="username" id="my-username" class="form-control" placeholder="Email Address" autocomplete="off">
 											<input type="password" name="password" id="my-password" class="form-control" style="display: none;" placeholder="Password">
@@ -91,7 +91,7 @@
 
 				if(!passwordField.is(':visible')) {
 					let match = usernameField.val().match(/[a-zA-Z_\.0-9]+@[a-zA-Z_0-9]+\.[a-zA-Z]+$/);
-					if (!match || (typeof match === 'array' && match.length === 0)) {
+					if (!match || (typeof match === 'object' && match.length === 0)) {
 						usernameField.css('border-color', 'red');
 						return;
 					}
@@ -134,7 +134,8 @@
 						btn: 'btn-success',
 						action: 'Agree',
 						width: '700px',
-						get: '/terms-and-condtions'
+						get: '/terms-and-condtions',
+						closable : false
 					});
 				}
 			});

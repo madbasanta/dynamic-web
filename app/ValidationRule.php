@@ -21,6 +21,27 @@ trait ValidationRule
 		}
 		return true;
 	}
+	function password($key, $params) {
+		if($this->is_nullable($key))
+			return true;
+		$value = $this->request->input($key);
+		if (preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&])(?=.{6,})/', $value)) {
+			return true;
+		}
+		$message = ['message' => $key . ' is not valid password'];
+		if(!preg_match('/[A-Z]+/', $value)) {
+			$message = ['message' => 'The string must contain at least 1 uppercase alphabetical character'];
+		} else if(!preg_match('/[a-z]+/', $value)) {
+			$message = ['message' => 'The string must contain at least 1 lowercase alphabetical character'];
+		} else if(!preg_match('/[0-9]+/', $value)) {
+			$message = ['message' => 'The string must contain at least 1 numeric character'];
+		} else if(!preg_match('/[!@#\$%\^&]+/', $value)) {
+			$message = ['message' => 'The string must contain at least one special character such as !, @, #, $, %, ^, &'];
+		} else if(!preg_match('/.{6,}/', $value)) {
+			$message = ['message' => 'The string must be six characters or longer'];
+		}
+		return $message;
+	}
 	function min($key, $params) {
 		if($this->is_nullable($key))
 			return true;
@@ -47,8 +68,8 @@ trait ValidationRule
 		$params = explode(',', $params);
 		$table = $params[0];
 		$column = isset($params[1]) ? $params[1] : $key;
-		$d = Model::table($table)->where([$column => $this->request->input($key)])->get();
-		if ($d->num_rows > 0) {
+		$d = Model::table($table)->where([$column => $this->request->input($key)])->first();
+		if ($d) {
 			return ['message' => $key . ' is already taken'];
 		}
 		return true;
@@ -71,8 +92,8 @@ trait ValidationRule
 		$params = explode(',', $params);
 		$column = isset($params[1]) ? $params[1] : $key;
 		$table = $params[0];
-		$d = Model::table($table)->where([$column => $this->request->input($key)])->get();
-		if ($d->num_rows === 0) {
+		$d = Model::table($table)->where([$column => $this->request->input($key)])->first();
+		if (!$d) {
 			return ['message' => $key . ' doesn\'t exists'];
 		}
 	}

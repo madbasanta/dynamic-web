@@ -1,4 +1,4 @@
-<?php //_include('inc/micro_header'); ?>
+<?php _include('inc/micro_header'); ?>
 <header>
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-md navbar-light bg-light static-top" id="main-top-nav">
@@ -18,7 +18,7 @@
 					</li>
 					<!-- Courses route -->
 					<li class="nav-item auth dropdown <?= isset($services)?'active':'' ?>">
-						<a class="nav-link dropdown-toggle" href="/services">Services</a>
+						<a class="nav-link dropdown-toggle" style="width: 75px;" href="/services">Services</a>
 						<div class="dropdown-menu">
 							<div class="dropdown-item"><a href="/services/audio">Audio</a></div>
 							<div class="dropdown-item"><a href="/services/video">Video</a></div>
@@ -26,11 +26,11 @@
 					</li>
 					<!-- Contact route -->
 					<li class="nav-item <?= isset($contact_us)?'active':'' ?>">
-						<a class="nav-link" href="/contact-us">Contact Us</a>
+						<a class="nav-link" href="/contact-us">Contact&nbsp;Us</a>
 					</li>
 					<!-- Our approach -->
 					<li class="nav-item <?= isset($our_approach)?'active':'' ?>">
-						<a class="nav-link" href="/our-approach">Our Approach</a>
+						<a class="nav-link" href="/our-approach">Our&nbsp;Approach</a>
 					</li>
 					<!-- Location -->
 					<li class="nav-item <?= isset($location)?'active':'' ?>">

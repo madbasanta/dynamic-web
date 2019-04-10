@@ -115,13 +115,15 @@ function confirm_action(props) {
     }
     $('body').append(body);
     if(props.get) {
-        $.get(props.get).then(function(response) {
-            let modal = $('#confirm-'+ modal_id);
-            modal.find('.modal-body').html(response);
-            modal.modal('show');
+        $.get(props.get).then(function(resp) {
+            $('#confirm-'+ modal_id +' .modal-body').html(resp).closest('#confirm-'+ modal_id).modal({
+                closable: !!props.closable
+            }).modal('show');
         });
     } else {
-        $('#confirm-'+ modal_id).modal('show');
+        $('#confirm-'+ modal_id).modal({
+                closable: !!props.closable
+        }).modal('show');
     }
 }
 
