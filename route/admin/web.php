@@ -2,5 +2,5 @@
 // admin routes
 $controller = 'admin/AdminHomeController';
 
-Route::get('/admin', join('@', [$controller, 'dashboard']));
-Route::get('/admin/blogs', join('@', [$controller, 'blogs']));
+Route::get('/admin', 'admin/AdminHomeController@dashboard');
+Route::get('/admin/events', 'admin/AdminHomeController@events');

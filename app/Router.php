@@ -50,7 +50,7 @@ class Route
 			));
 		}
 		session(['http_current_uri' => '404-page-not-found']);
-		redirect('404-page-not-found');
+		!request()->input('ajax') ? redirect('404-page-not-found') : null;
 		exit;
 	}
 

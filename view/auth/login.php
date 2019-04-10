@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title><?= join(' | ', ['Sing in', config('app_name', true)]) ?></title>
-	<link rel="icon" href="assets/img/master_favicon_thumbnail.png">
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/all.css">
-	<link rel="stylesheet" href="assets/css/style.css?t=<?= time() ?>">
-</head>
-<body>
+<?php _include('inc/doc_head', ['title' => join(' | ', ['Sing in', config('app_name', true)])]) ?>
+
+
 	<?php _include('inc/header', ['signIn' => 'active']); ?>
 	<!-- Contents -->
 	<section>
@@ -103,10 +95,7 @@
 			</div>
 		</div>
 	</section>
-	<?php _include('inc/footer', ['fix_footer' => true]); ?>
+	<?php _include('inc/footer'); ?>
 	<!-- Scripts -->
-	<script type="text/javascript">
-
-	</script>
 </body>
 </html>

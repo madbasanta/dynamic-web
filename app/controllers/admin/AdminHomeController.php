@@ -1,4 +1,6 @@
 <?php
+_model('Event');
+
 class AdminHomeController 
 {
 	public function __construct() {
@@ -8,10 +10,13 @@ class AdminHomeController
 	}
 
 	public function dashboard() {
-		return view('admin/dashboard1');
+		return view('admin/dashboard');
 	}
 
-	function blogs() {
-		return 'admin blogs';
+	function events(Request $request) {
+		$events = Event::leftjoin('address', 'address.id', 'events.address_id')
+					->select('events.*', 'city')->paginate(10);
+					// debugger($events);
+		return view('admin/events/events', compact('events'));
 	}
 }

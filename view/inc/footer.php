@@ -1,4 +1,9 @@
-<footer id="sticky-footer" class="py-4 bg-dark text-white-50 <?= isset($fix_footer)?'fixed-bottom':'' ?>">
+</section>
+<!-- page wrap section end -->
+
+
+
+<footer id="sticky-footer" class="py-4 bg-dark site-footer text-white-50 <?= isset($fix_footer)?'fixed-bottom':'' ?>">
 	<div class="container text-center mb-3">
 		<a href="javascript:void(0)" class="text-white px-3">Company</a> .
 		<a href="javascript:void(0)" class="text-white px-3">Product</a> .
@@ -32,9 +37,10 @@
 		</div>
 	</div>
 </section>
+
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/master.js"></script>
+<script src="assets/js/master.js?t=<?= time() ?>"></script>
 <script>
 	$(function() {
 		/*

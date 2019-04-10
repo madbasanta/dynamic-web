@@ -124,3 +124,108 @@ function confirm_action(props) {
         $('#confirm-'+ modal_id).modal('show');
     }
 }
+
+function logout() {
+    let form = document.createElement('FORM');
+    form.action = '/log-out';
+    form.method = 'post';
+    document.body.appendChild(form);
+    form.submit();
+}
+
+$('#right-side-bar').on('click', function(e) {
+    let target = e.target || e.srcElement;
+    if (target !== document.getElementById('right-side-bar')) return;
+    $('#right-bar-contents').animate({"width": "0px"}, 200, function() {
+        $(target).hide();
+    });
+});
+
+$('#close-right-side-bar').on('click', function() {
+    $('#right-bar-contents').animate({"width": "0px"}, 200, function() {
+        $('#right-side-bar').hide();
+    });
+});
+
+function sidebar({title, icon, url}) {
+    $('#right-side-bar').show(0, function() {
+        $('#right-bar-contents .title').html(`<i class="fa fa-${icon} w-30 text-orange"></i> ${title}`);
+        $('#right-bar-contents').animate({"width": "250px"}, 200);
+    });
+}
+
+$('#my-notifications').on('click', function() {
+    sidebar({
+        "title" : "All Notifications",
+        "icon" : "bell",
+        "url" : '/notifications/right-side-bar'
+    });
+});
+
+$('#my-settings').on('click', function() {
+    sidebar({
+        "title" : "Settings",
+        "icon" : "cog",
+        "url" : '/mails/right-side-bar'
+    });
+});
+
+/*
+admin load side bar page
+*/
+
+function load_page(url, content_holder = '#content-wrapper', callback = r => r) {
+    sendAjax({url, data: {ajax: true}, loader: true}, function(response) {
+        $(content_holder).html(response);
+        callback(response);
+    });
+}
+
+$('.left-side-bar-pages a').on('click', function(e) {
+    e.preventDefault();
+    load_page(this.href, '#content-wrapper');
+    location.hash = $(this).data('slug');
+    breadcrumb([$(this).data('slug')]);
+    $(this).addClass('active').siblings('a.active').removeClass('active');
+});
+
+function sendAjax(props, callback = r => r, error = e => e) {
+    callback = props.success || callback;
+    error = props.error || error;
+    
+    props.success = function(resp) {
+        props.loader ? removeLoader() : null;
+        callback(resp);
+    };
+    props.error = function(err) {
+        props.loader ? removeLoader() : null;
+        error(err);
+    }
+
+    if(props.loader)
+        addLoader();
+    
+    if (props.hasOwnProperty('formdata')) {
+        props.data = props.formdata;
+        props.contentType = false;
+        props.processData = false;
+    }
+
+    $.ajax(props);
+}
+
+function breadcrumb(crumbs) {
+    let target = $('#wrapper .breadcrumb').empty();
+    let content = '<div class="breadcrumb-item"><i class="fa fa-home"></i></div>';
+    for(let i = 0; i < crumbs.length; i++) {
+        content += `<div class="breadcrumb-item">${crumbs[i]}</div>`;
+    }
+    target.html(content);
+}
+
+function addLoader() {
+    $('#section-loader').css('display', 'flex');
+}
+function removeLoader() {
+    $('#section-loader').css('display', 'none');
+}

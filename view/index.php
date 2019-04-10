@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title><?= join(' | ', [config('app_name', true), 'Leading business company']) ?></title>
-	<link rel="icon" href="assets/img/master_favicon_thumbnail.png">
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/all.css">
-	<link rel="stylesheet" href="assets/css/style.css?t=<?= time() ?>">
-</head>
-<body>
+<?php _include('inc/doc_head', ['title' => join(' | ', [config('app_name', true), 'Leading business company'])]) ?>
+
 	<?php _include('inc/header', ['home' => 'active']); ?>
 	<?php _include('inc/slider'); ?>
 	<!-- Contents -->
-	<section class="my-5">
+	<section class="my-3 my-lg-5">
 		<div class="container">
 			<div class="card">
 				<div class="card-body">
@@ -30,7 +21,7 @@
 							<form action="javascript:void(0)" id="get-started-form">
 								<div class="row">
 									<div class="col-sm-4">
-										<div class="form-group mb-0">
+										<div class="form-group mb-sm-0">
 											<input type="email" name="username" id="my-username" class="form-control" placeholder="Email Address" autocomplete="off">
 											<input type="password" name="password" id="my-password" class="form-control" style="display: none;" placeholder="Password">
 										</div>
@@ -47,10 +38,10 @@
 		</div>
 	</section>
 	<!-- end of intro section -->
-	<section class="mb-5">
+	<section class=" mb-sm-3 mb-lg-5">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-12 col-md-4 col-lg-4">
+				<div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-3 mb-md-0">
 					<div class="card">
 						<div class="card-body p-0">
 							<div class="bg-light" style="padding-bottom: 70%;">
@@ -62,7 +53,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-12 col-md-4 col-lg-4">
+				<div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-3 mb-md-0">
 					<div class="card">
 						<div class="card-body p-0">
 							<div class="bg-light" style="padding-bottom: 70%;">
@@ -74,7 +65,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-12 col-md-4 col-lg-4">
+				<div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-3 mb-md-0">
 					<div class="card">
 						<div class="card-body p-0">
 							<div class="bg-light" style="padding-bottom: 70%;">

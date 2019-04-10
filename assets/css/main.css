@@ -5,6 +5,25 @@ body {
 	/*font-family: 'Source Sans Pro', sans-serif;*/
 	/*margin-bottom: 85px;*/
 }
+html, body {
+    height: 100%;
+}
+.page-wrap{
+  min-height: 100%;
+  /* equal to footer height */
+    margin-bottom: -143px; 
+}
+.page-wrap:after{
+  content: "";
+  display: block;
+}
+.site-footer {
+  /* .push must be the same height as footer */
+    height: 143px; 
+}
+.site-footer {
+  background: orange;
+}
 body::-webkit-scrollbar,
 .custom-scrollbar::-webkit-scrollbar {
     width: 5px;

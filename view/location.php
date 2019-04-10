@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title><?= join(' | ', ['Location', config('app_name', true)]) ?></title>
-	<link rel="icon" href="assets/img/master_favicon_thumbnail.png">
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/all.css">
-	<link rel="stylesheet" href="assets/css/style.css?t=<?= time() ?>">
-</head>
-<body>
+<?php _include('inc/doc_head', ['title' => join(' | ', ['Location', config('app_name', true)])]) ?>
+
 	<?php _include('inc/header', ['location' => 'active']); ?>
 	<!-- Contents -->
 	<section class="my-5">
@@ -70,7 +61,7 @@
 									</div>
 								</div>
 								<div class="col-md-12">
-									<button class="btn btn-sm btn-primary btn-login text-uppercase px-5" type="submit">Book</button>
+									<button class="btn btn-sm btn-primary btn-login   px-5" type="submit">Book</button>
 								</div>
 							</div>
 						</form>
