@@ -50,11 +50,10 @@ if ( ! function_exists('glob_recursive')) {
 }
 
 function session($key = 0, $default = null) {
-	_require('app/Session.php');
 	$setSession = is_array($key) ? true : false;
-	if(!$setSession && $key) return call_user_func_array('Session::get', array($key, $default));
+	if(!$setSession && $key) return Session::get($key, $default);
 	// debugger($key);
-	return $key === 0 ? new Session : call_user_func_array('Session::put', array($key));
+	return $key === 0 ? new Session : Session::put($key);
 }
 
 // http request
@@ -64,8 +63,9 @@ function request() {
 }
 
 // change header location | redirect function
-function redirect($uri) {
-	header('location: /' . trim($uri, '/'));
+function redirect($uri, $statusCode = null) {
+	$params = $statusCode ? [true, $statusCode] : [];
+	header('location: /' . trim($uri, '/'), ...$params);
 	exit;
 }
 
@@ -90,13 +90,15 @@ function error_msg($key) {
 	return $message;
 }
 // load old data from session 
-function old($key) {
-	return isset(session('old')[$key]) ? session('old')[$key] : null;
+function old($key, $default = null) {
+	return isset(session('old')[$key]) ? session('old')[$key] : $default;
 }
 
 // require instance class of model
-function _model($instance) {
-	require_once "app/models/$instance.php";
+function _model() {
+	foreach (func_get_args() as $instance) {
+		require_once "app/models/$instance.php";
+	}
 }
 
 // auth 
@@ -106,4 +108,40 @@ function auth($key = null) {
 	if(isset($auth->$key))
 		return $auth->$key;
 	return null;
+}
+
+function slug($text) {
+  // replace non letter or digits by -
+  $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+  // transliterate
+  $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+  // remove unwanted characters
+  $text = preg_replace('~[^-\w]+~', '', $text);
+
+  // trim
+  $text = trim($text, '-');
+
+  // remove duplicate -
+  $text = preg_replace('~-+~', '-', $text);
+
+  // lowercase
+  $text = strtolower($text);
+
+  if (empty($text)) {
+    return 'n-a';
+  }
+
+  return $text;
+}
+
+//limit text with words
+function limit_text($text, $limit) {
+	if (str_word_count($text, 0) > $limit) {
+		$words = str_word_count($text, 2);
+		$pos = array_keys($words);
+		$text = substr($text, 0, $pos[$limit]) . '...';
+	}
+	return $text;
 }

@@ -11,7 +11,7 @@
 <body>
 	<?php //_include('inc/header', ['signIn' => 'active']); ?>
 	<!-- Contents -->
-	<section>
+	<section class="page-wrap">
 		<div class="container-fluid">
 		  <div class="row no-gutter">
 		    <div class="col-md-8 col-lg-6">
@@ -48,11 +48,6 @@
 		    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
 		  </div>
 		</div>
-	</section>
 	<?php _include('inc/footer'); ?>
-	<!-- Scripts -->
-	<script type="text/javascript">
-
-	</script>
 </body>
 </html>

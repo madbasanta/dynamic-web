@@ -9,6 +9,7 @@ class App
 
 		$handler = new $controller($method);
 		if (!method_exists($handler, $method)) {
+			http_response_code(500);
 			throw new Exception("Bad method call");
 		}
 		$reflection = new ReflectionMethod($controller, $method);
@@ -18,7 +19,7 @@ class App
 			if($arg->getClass() && $arg->getClass()->name === 'Request') {
 				$arguments[$key] = request();
 			} else {
-				$arguments[$key] = isset($data[$key]) ? $data[$key] : null;
+				$arguments[$key] = array_shift($data);
 			}
 		}
 		// $response = call_user_func_array("$controller::$method", $arguments);

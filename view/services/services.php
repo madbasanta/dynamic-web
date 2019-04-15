@@ -7,19 +7,19 @@
 			<div class="row">
 				<div class="col-md-8">
 					<!-- <h2>Blogs</h2> -->
-					<?php foreach(range(1, 5) as $blog): ?>
+					<?php foreach($services->data as $blog): ?>
 					<div class="card mb-3">
 						<div class="card-body">
 							<div class="row">
 								<div class="col-md-3">
-									<img data-lazy="assets/img/product00.jpg" class="img-fluid">
+									<img data-lazy="/<?= $blog->img_path ?>" class="img-fluid">
 								</div>
 								<div class="col-md-9">
-									<h5>Blog title of the current scenario</h5>
+									<h5><?= $blog->title ?></h5>
 									<p class="mb-1">
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius assumenda rerum voluptate laboriosam aspernatur fuga impedit qui natus pariatur quaerat, ipsam, doloribus praesentium nesciunt id.
+										<?= limit_text($blog->description, 50); ?>
 									</p>
-									<a href="/blogs/this-is-my-first-blog-<?= $blog ?>">See more</a>
+									<a href="/services/<?= $blog->slug ?>">See more</a>
 								</div>
 							</div>
 						</div>
@@ -27,14 +27,14 @@
 					<?php endforeach; ?>
 				</div>
 				<div class="col-md-4">
-					<div class="card">
+					<div class="card mb-3">
 						<div class="card-body">
 							<h5 class="text-orange">
 								Audio Materials
 							</h5>
-							<?php foreach(range(1, 3) as $i): ?>
+							<?php foreach($audios as $ad): ?>
 							<div>
-								<a href="/blogs/this-is-my-first-blog-<?= $i ?>">Generating special title <?= $i ?></a>
+								<a href="/services/<?= $ad->slug ?>"><?= $ad->title ?></a>
 							</div>
 							<?php endforeach; ?>
 						</div>
@@ -42,9 +42,9 @@
 							<h5 class="text-orange">
 								Video Materials
 							</h5>
-							<?php foreach(range(1, 3) as $i): ?>
+							<?php foreach($videos as $vd): ?>
 							<div>
-								<a href="/blogs/this-is-my-first-blog-<?= $i ?>">Generating special title <?= $i ?></a>
+								<a href="/services/<?= $vd->slug ?>"><?= $vd->title ?></a>
 							</div>
 							<?php endforeach; ?>
 						</div>

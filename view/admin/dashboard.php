@@ -37,5 +37,13 @@
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/bootstrap.min.js"></script>
 		<script src="assets/js/master.js?t=<?= time() ?>"></script>
+		<script>
+			$(function() {
+				let element = document.querySelector('.left-side-bar-pages a');
+				if (element) {
+					$(element).click();
+				}
+			});
+		</script>
 	</body>
 </html>

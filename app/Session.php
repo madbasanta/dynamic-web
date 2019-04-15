@@ -35,7 +35,7 @@ class Session
 
 	// call forget method 
 	function forget($key) {
-		$keys = is_array($key) ? $key : [$key];
+		$keys = is_array($key) ? $key : func_get_args();
 		return $this->_forget($keys);
 	}
 

@@ -18,10 +18,11 @@ class LoginController extends Controller
 	function signIn(Request $request) {
 		// validate login request for username and password
 		$this->validateRequest($request);
+		$username = $request->input('username');
 		$user = User::where([
-			'email' => $request->input('username'), 
 			'password' => sha1($request->input('pwd'))
-		])->first();
+		])->where(DB::raw("(username = '$username' or email = '$username')"))
+		->first();
 
 		if($user) {
 			/*
@@ -29,10 +30,10 @@ class LoginController extends Controller
 			if user is authenticated but not admin then redirects to home page
 			*/
 			if($request->input('page') === 'adminlogin' && !in_array($user->role, ['user'])) {
-				session(['my_app_auth' => $user]);
+				session(['my_app_auth' => (object)$user->toArray()]);
 				redirect('admin');
 			} elseif ($request->input('page') === 'login') {
-				session(['my_app_auth' => $user]);
+				session(['my_app_auth' => (object)$user->toArray()]);
 				redirect('/');
 			}
 		}
@@ -43,7 +44,7 @@ class LoginController extends Controller
 	// Request validator
 	function validateRequest(Request $request) {
 		$validator = $this->validate($request, [
-			'username' => 'required|exists:users,email',
+			'username' => 'required|exists_username:users,email,username',
 			'pwd' => 'required'
 		]);
 		if($validator->hasInvalidField()) {

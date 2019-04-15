@@ -9,6 +9,11 @@ class HomeController extends Controller
 		return view('index');
 	}
 
+	// setup route
+	function setup() {
+		redirect('setup.php');
+	}
+
 	// 404 page not found
 	function page404() {
 		return view('404');
@@ -47,5 +52,12 @@ class HomeController extends Controller
 
 	function termsAndCondition() {
 		return view('terms-and-condition');
+	}
+
+	function policies(Request $request) {
+		if ($request->input('page') === 'service') {
+			return view('inc/privacy-policy');
+		}
+		return view('privacy-policies');
 	}
 }

@@ -77,7 +77,7 @@ trait ValidationRule
 	function string($key) {
 		if($this->is_nullable($key))
 			return true;
-		if(preg_match('#^[a-zA-Z]+$#', $this->request->input($key))) {
+		if(preg_match('#^[a-zA-Z ]+$#', $this->request->input($key))) {
 			return true;
 		}
 		return  ['message' => $key . ' must be an valid string'];
@@ -96,6 +96,7 @@ trait ValidationRule
 		if (!$d) {
 			return ['message' => $key . ' doesn\'t exists'];
 		}
+		return true;
 	}
 	function nullable($key) {
 		$this->null($key);
@@ -104,5 +105,27 @@ trait ValidationRule
 	function is_nullable($key) {
 		if(!$this->request->input($key) && in_array($key, $this->nullables))
 			return true;
+	}
+
+	function exists_username($key, $params) {
+		$params = explode(',', $params);
+		$table = array_shift($params);
+		$username = $this->request->input($key);
+		$exp = array_reduce($params, function($acc, $exp) use($username) {
+			return $acc .= " $exp = '$username' or";
+		}, '');
+		// dd($exp, $table);
+		$d = Model::table($table)->where(DB::raw(rtrim($exp, 'or')))->first();
+		if (!$d) {
+			return ['message' => $key . ' doesn\'t exists'];
+		}
+		return true;
+	}
+
+	function username($key) {
+		if (preg_match('!^[a-zA-Z0-9]{5,}$!', $this->request->input($key))) {
+			return true;
+		}
+		return ['message' => 'Username can not contain empty space or symbols'];
 	}
 }

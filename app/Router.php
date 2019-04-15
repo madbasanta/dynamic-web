@@ -36,7 +36,10 @@ class Route
 		$router = new static;
 		$callback = function ($path, $data = []) {
 			list($class, $method) = explode('@', $path);
-			if (!isset($method)) throw new Exception("Bad method call");
+			if (!isset($method)) {
+				http_response_code(500);
+				throw new Exception("Bad method call");
+			}
 			call_user_func_array('App::call', array($class, $method, $data));
 		};
 		$uri = trim($uri, '/');
@@ -50,7 +53,7 @@ class Route
 			));
 		}
 		session(['http_current_uri' => '404-page-not-found']);
-		!request()->input('ajax') ? redirect('404-page-not-found') : null;
+		!request()->input('ajax') ? redirect('404-page-not-found', 404) : null;
 		exit;
 	}
 

@@ -8,7 +8,7 @@
 		<a href="javascript:void(0)" class="text-white px-3">Company</a> .
 		<a href="javascript:void(0)" class="text-white px-3">Product</a> .
 		<a href="javascript:void(0)" class="text-white px-3">Partners</a> .
-		<a href="javascript:void(0)" class="text-white px-3">Policies</a> 
+		<a href="/privacy-policies" class="text-white px-3">Policies</a> 
 	</div>
 	<div class="container text-center socials mb-3">
 		<?php foreach(config('socials') as $icon => $url): ?>
@@ -30,7 +30,7 @@
 						We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you’ve provided to them or that they’ve collected from your use of their services. You consent to our cookies if you continue to use our website.
 					</p>
 					<div class="clearfix">
-						<button id="cookie-accept" class="btn btn-sm rounded-0 btn-success px-4 float-right">OK</button>
+						<button id="cookie-accept" class="btn btn-sm rounded-0 btn-success px-4 float-right">Agree</button>
 					</div>
 				</div>
 			</div>
@@ -38,10 +38,10 @@
 	</div>
 </section>
 
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/master.js?t=<?= time() ?>"></script>
-<script>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/master.js?t=<?= time() ?>"></script>
+<script defer="">
 	$(function() {
 		/*
 			asking cookie permision
@@ -54,7 +54,7 @@
 
 		$('#cookie-accept').on('click', function() {
 			let time = (new Date()).getTime();
-			setCookie('cookie_accepted', time, 5);
+			setCookie('cookie_accepted', time, 60);
 			$('#bottomMessage').slideUp(400);
 		});
 		// setCookie('cookie_accepted', 'expire', 0);

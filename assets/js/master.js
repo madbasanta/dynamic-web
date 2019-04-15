@@ -51,45 +51,25 @@ function getCookie(cname) {
 }
 // =======================================================================
 
-/*
-    LOGIN AND REGISTRACTION FORM
-*/
-$(function() {
-    $('#sign-up-form').off('submit').on('submit', function(e) {
-        if(!$('#term_agree').prop('checked'))
-            e.preventDefault();
-    });
-    $('#sign-in-form').off('submit').on('submit', function(e) {
-
-        let login_attempt = getCookie('login_attempt');
-        if(!login_attempt) {
-            login_attempt = 1;
-            setCookie('login_attempt', login_attempt, 3);
-        } else {
-            login_attempt = parseInt(login_attempt);
-            setCookie('login_attempt', login_attempt + 1, 3);
-        }
-        if(login_attempt >= 3) {
-            e.preventDefault();
-            $('#sign-in-submit').prop('disabled', true);
-            alert('Please refresh the page and try again after some time.');
-        }
-    });
-    let login_attempt = getCookie('login_attempt');
-    if(login_attempt > 3) {
-        $('#sign-in-submit').prop('disabled', true);
-    }
-});
 
 /*
     MODAL JS
 */
 
-function confirm_action(props) {
-    props.btn = props.btn || 'btn-danger';
+function confirm_action(props, callback = '') {
     props.width = props.width ? 'max-width:'+ props.width : '';
     let modal_id = (new Date()).getTime();
     props.body = props.body || '';
+
+    let acitons = '';
+    if(props.action) {
+        acitons = `<div class="clearfix mt-4">
+                <button type="button" class="btn btn-secondary px-4" data-dismiss="modal">No</button>
+                <button type="button" class="btn ${props.btn} float-right px-4" id="submit-${modal_id}">${props.action}</button>
+            </div>`;
+    }
+
+
     let body = `<!-- The Modal -->
                     <div class="modal confirm_action_modal" id="confirm-${modal_id}">
                       <div class="modal-dialog" style="${props.width}">
@@ -103,7 +83,7 @@ function confirm_action(props) {
 
                           <!-- Modal body -->
                           <div class="modal-body p-5">
-                                ${props.body}
+                                ${props.body}${acitons}
                           </div>
                         </div>
                       </div>
@@ -115,7 +95,7 @@ function confirm_action(props) {
     }
     $('body').append(body);
     if(props.get) {
-        $.get(props.get).then(function(resp) {
+        sendAjax({url : props.get, loader : props.loader}, function(resp) {
             $('#confirm-'+ modal_id +' .modal-body').html(resp).closest('#confirm-'+ modal_id).modal({
                 closable: !!props.closable
             }).modal('show');
@@ -124,6 +104,10 @@ function confirm_action(props) {
         $('#confirm-'+ modal_id).modal({
                 closable: !!props.closable
         }).modal('show');
+    }
+
+    if (typeof callback === 'function') {
+        $(document).off('click', '#submit-'+ modal_id).on('click', '#submit-'+ modal_id, callback);
     }
 }
 
@@ -230,4 +214,65 @@ function addLoader() {
 }
 function removeLoader() {
     $('#section-loader').css('display', 'none');
+}
+let styles = {
+    "display" : "none",
+    "position" : "fixed",
+    "bottom" : "70px",
+    "right" : "25px",
+    "width" : "330px",
+    "z-index" : "9999"
+};
+function toaster(message) {
+    let toast_container = document.createElement('div');
+    toast_container.className = 'alert alert-dismissible';
+    Object.assign(toast_container.style, styles);
+    toast_container.innerHTML = `<button type="button" class="close" data-dismiss="alert">×</button>
+    <strong class="alert-title"></strong> ${message}`;
+    document.body.appendChild(toast_container);
+    let hideToaster = function(toaster) {
+        setTimeout(function(toast) {
+            $(toast).fadeOut();
+        }, 5000, toaster);
+    };
+    let showToaster = function(toaster) {
+        $(toaster).fadeIn(function() {
+            hideToaster(this);
+        });
+    };
+    return {
+        error () {
+            toast_container.classList.add('alert-danger');
+            toast_container.querySelector('.alert-title').innerHTML = 'Error <br>';
+            showToaster(toast_container);
+        },
+        success () {
+            toast_container.classList.add('alert-success');
+            toast_container.querySelector('.alert-title').innerHTML = 'Success <br>';
+            showToaster(toast_container);
+        }
+    }; 
+}
+
+function p_json(text) {
+    try {
+        return JSON.parse(text);
+    } catch(e) {
+        return null;
+    }
+}
+
+function processFormValidation(err, that = '#no-existence') {
+    let form = $(that);
+    let errors = p_json(err.responseText);
+    if(!errors) return true;
+    let msg = '';
+    form.find(':input').css('border', '1px solid rgb(206, 212, 218)');
+    for (let key in errors) {
+        msg += errors[key][0] + '<br>';
+        form.find('[name="'+ key +'"]').css('border', '1px solid #e3342f');
+    }
+
+    toaster(msg).error();
+    return true;
 }

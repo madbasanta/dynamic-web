@@ -30,7 +30,7 @@ class PasswordResetController extends Controller
 				'password' => sha1($request->input('password'))
 			]);
 		}
-		redirect('/sign-in');
+		redirect('sign-in');
 	}
 
 	private function validateRequest(Request $request)
@@ -43,7 +43,7 @@ class PasswordResetController extends Controller
 		if($v->hasInvalidField()) {
 			session(['old' => $v->validated()]);
 			session(['errors' => $v->singleBag()]);
-			redirect(session('http_previous_uri'));
+			redirect('reset-password');
 		}
 	}
 }

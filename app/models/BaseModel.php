@@ -9,7 +9,7 @@ class BaseModel
 	private $builder;
 	private $exp = [];
 	private $select = [];
-	private $append = '';
+	private $append = [];
 
 	function __construct($data = []) {
 		$this->builder = new QueryBuilder(get_called_class());
@@ -68,6 +68,12 @@ class BaseModel
 		return $this->builder->result();
 	}
 
+	function _delete() {
+		$this->builder->createDeleteQuery($this->table, $this->exp);
+		$this->builder->execute();
+		return $this->builder->result();
+	}
+
 	function _select($column) {
 		$columns = gettype($column) === 'string' ? func_get_args() : $column;
 		$this->select = array_merge($this->select, $columns);
@@ -75,6 +81,7 @@ class BaseModel
 	}
 
 	function _where($conditions) {
+		$conditions = $conditions instanceof DB ? ['raw' => $conditions] : $conditions;
 		$this->exp = array_merge($this->exp, $conditions);
 		return $this;
 	}
@@ -87,14 +94,24 @@ class BaseModel
 
 	function _get(...$columns) {
 		$this->select = count($columns) ? $columns : $this->select;
-		$this->builder->createReadQuery($this->table, $this->select, $this->exp, $this->append);
+		$this->builder->createReadQuery($this->table, $this->select, $this->exp, join(' ', $this->append));
 		$this->builder->execute();
 		return $this->builder->result();
 	}
 
+	function _json() {
+		$this->builder->setClass('StdClass');
+		return $this->_get();
+	}
+
+	function _fetch() {
+		$this->builder->createReadQuery($this->table, $this->select, $this->exp, join(' ', $this->append));
+		$this->builder->fetchArray();
+		return $this->builder->result();
+	}
+
 	function _first() {
-		$this->append = ' limit 1';
-		$this->builder->createReadQuery($this->table, $this->select, $this->exp, $this->append);
+		$this->builder->createReadQuery($this->table, $this->select, $this->exp, ' limit 1');
 		$this->builder->execute();
 		return $this->builder->first_result();
 	}
@@ -109,17 +126,50 @@ class BaseModel
 		return $this;
 	}
 
+	function _limit($max) {
+		array_push($this->append, "limit $max");
+		return $this;
+	}
+
+	function _offset($skip) {
+		array_push($this->append, "offset $skip");
+		return $this;
+	}
+
+	function _groupBy() {
+		$column = join(', ', func_get_args());
+		array_push($this->append, "group by $column");
+		return $this;
+	}
+
+	function _orderBy($column, $order = 'asc') {
+		$column = gettype($column) === 'string' ? [$column => $order] : $column;
+		$sql = 'order by';
+		foreach($column as $key => $value)
+			$sql .= " $key $value,";
+		array_push($this->append, rtrim($sql, ','));
+		return $this;
+	}
+
 	function _paginate(int $per_page = 15) {
 		$request = request();
 		$current_page = (int) $request->input('page', 1);
 		$offset = ($current_page - 1) * $per_page;
-		$this->append = " limit $per_page offset $offset";
+
 		$results = $this->count();
+		$this->limit($per_page)->offset($offset);
+		
 		$last_page = (int)ceil($results/$per_page);
 		return (object) [
-			'data' => $this->get(), 'total' => $results, 
+			'data' => $this->json(), 'total' => $results, 
 			'per_page' => $per_page, 'current_page' => $current_page, 'last_page' => $last_page, 
-			'previous_page' => ($current_page-1)?:null, 'next_page' => $current_page != $last_page?$current_page+1:null ///
+			'previous_page' => ($current_page-1)?:null, 'next_page' => $current_page != $last_page && $last_page?$current_page+1:null ///
 		];
+	}
+
+	
+	public function setClass($class) {
+		$this->builder->setClass($class);
+		return $this;
 	}
 }
