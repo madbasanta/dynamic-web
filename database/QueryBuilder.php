@@ -144,7 +144,7 @@ class QueryBuilder
 class DB
 {
 	private $query;
-
+	
 	function __construct($query) {
 		$this->query = $query;
 	}
@@ -155,12 +155,5 @@ class DB
 
 	static function raw($query) {
 		return new static($query);
-	}
-
-	static function table($table) {
-		$m = new static;
-		$m->setTable($table);
-		$m->setClass('StdClass');
-		return $m;
 	}
 }

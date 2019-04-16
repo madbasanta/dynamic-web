@@ -101,8 +101,11 @@
 							$(this).focus();
 						});
 					});
-				} else {
-					let match = passwordField.val().match(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&])(?=.{6,})/);
+				} 
+				else 
+				{
+					let match = passwordField.val()
+					.match(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&])(?=.{6,})/);
 					if(match === null) {
 						let value = passwordField.val();
 						let messages = [

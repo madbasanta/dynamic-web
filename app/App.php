@@ -25,8 +25,9 @@ class App
 		// $response = call_user_func_array("$controller::$method", $arguments);
 		$response = $handler->$method(...$arguments);
 		// $response = $handler->$method(...array_values($data));
-		if (is_array($response)) echo json_encode($response);
-		if (is_string($response)) echo $response;
-		if (is_bool($response)) echo $response ? '1' : '0';
+		if (is_array($response) || is_object($response)) echo json_encode($response);
+		elseif (is_string($response) || is_numeric($response)) echo $response;
+		elseif (is_bool($response)) echo $response ? '1' : '0';
+		elseif (is_null($response)) echo $response;
 	}
 }

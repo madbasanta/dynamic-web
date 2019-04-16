@@ -76,28 +76,22 @@ class UserController extends Controller
 	// save profile info
 	function saveProfileInfo(Request $request) {
 		$this->validateProfileRequest($request);
-
 		$data = $request->all();
 		if($request->has('password')) {
 			$this->validateProfileRequest($request, [
 				'password' => 'confirmed:password_confirmation|min:8'
 			]);
-
 			$data = array_merge($data, [
 				'password' => sha1($request->input('password'))
 			]);
 		}
-
 		if($request->hasFile('profile_img')) {
 			$original_name = $request->file('profile_img')->original_name();
-			$file_path = $request->move('assets/img/users', str_pad(auth('id'), 2, '0', STR_PAD_LEFT) . $original_name);
+			$file_path = $request->move('assets/img/users', str_pad(auth('id'), 2,  '0', STR_PAD_LEFT) . $original_name);
 			$data['profile_img'] = $file_path ?: null;
 		}
-
 		User::where(['id' => auth('id')])->update($data);
-
 		session(['my_app_auth' => (object)User::where(['id' => auth('id')])->first()->toArray()]);
-
 		redirect('profile');
 	}
 

@@ -12,7 +12,7 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col-md-3">
-									<img data-lazy="/<?= $blog->img_path ?>" class="img-fluid">
+									<img data-lazy="/<?= $blog->img_path ?>" class="img-fluid" alt="service thumbnail image">
 								</div>
 								<div class="col-md-9">
 									<h5><?= $blog->title ?></h5>

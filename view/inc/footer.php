@@ -1,8 +1,6 @@
 </section>
 <!-- page wrap section end -->
 
-
-
 <footer id="sticky-footer" class="py-4 bg-dark site-footer text-white-50 <?= isset($fix_footer)?'fixed-bottom':'' ?>">
 	<div class="container text-center mb-3">
 		<a href="javascript:void(0)" class="text-white px-3">Company</a> .
@@ -26,11 +24,8 @@
 			<div class="col-md-8">
 				<div class="text-light">
 					<h5>This website uses cookies</h5>
-					<p style="font-size: 13px;">
-						We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you’ve provided to them or that they’ve collected from your use of their services. You consent to our cookies if you continue to use our website.
-					</p>
-					<div class="clearfix">
-						<button id="cookie-accept" class="btn btn-sm rounded-0 btn-success px-4 float-right">Agree</button>
+					<p style="font-size: 13px;"> We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you’ve provided to them or that they’ve collected from your use of their services. You consent to our cookies if you continue to use our website. </p>
+					<div class="clearfix"> <button id="cookie-accept" class="btn btn-sm rounded-0 btn-success px-4 float-right">Agree</button>
 					</div>
 				</div>
 			</div>
@@ -54,7 +49,7 @@
 
 		$('#cookie-accept').on('click', function() {
 			let time = (new Date()).getTime();
-			setCookie('cookie_accepted', time, 60);
+			setCookie('cookie_accepted', time, 1440); // set cookie for 1 day i.e. 1440 minutes
 			$('#bottomMessage').slideUp(400);
 		});
 		// setCookie('cookie_accepted', 'expire', 0);

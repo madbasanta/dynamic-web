@@ -166,7 +166,6 @@ class BaseModel
 			'previous_page' => ($current_page-1)?:null, 'next_page' => $current_page != $last_page && $last_page?$current_page+1:null ///
 		];
 	}
-
 	
 	public function setClass($class) {
 		$this->builder->setClass($class);

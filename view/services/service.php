@@ -11,7 +11,7 @@
 						<div class="card-body">
 							<div class="row ">
 								<div class="col-md-8 mb-3" style="padding-bottom: 50%">
-									<img data-lazy="/<?= $service->img_path ?>" class="img-fluid">
+									<img data-lazy="/<?= $service->img_path ?>" class="img-fluid" alt="service thumbnail image">
 								</div>
 								<div class="col-md-12">
 									<h4><?= $service->title ?></h4>

@@ -19,7 +19,7 @@ function view($path, $data = []) {
 	session()->forget(['errors', 'old']);
 }
 
-$config = include('config.php');
+$config = include_once('config.php');
 // get config data
 function config($key, $strip_tags = false) {
 	global $config;
