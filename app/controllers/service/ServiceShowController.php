@@ -5,7 +5,11 @@ _model('Event', 'Address', 'User', 'Booking', 'Service');
 class ServiceShowController extends Controller
 {
 	function services(Request $request) {
-		$services = Service::orderBy('id', 'desc')->paginate(5);
+		$term = $request->input('query', '');
+		$services = Service::where([
+						DB::raw("title like '%$term%' or description like '%$term%'")
+					])
+					->orderBy('id', 'desc')->paginate(5);
 		$audio_video = $this->getAudioVideo();
 		return view('services/services', array_merge(compact('services'), $audio_video));
 	}

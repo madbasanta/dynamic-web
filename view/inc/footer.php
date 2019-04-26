@@ -53,5 +53,10 @@
 			$('#bottomMessage').slideUp(400);
 		});
 		// setCookie('cookie_accepted', 'expire', 0);
+		$('#searchInput').on('keyup', function(e) {
+			if(e.keyCode === 13) {
+				location.href = '/services?query=' + this.value;
+			}
+		});
 	});
 </script>

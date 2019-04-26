@@ -35,6 +35,18 @@
 					<li class="nav-item <?= isset($location)?'active':'' ?>">
 						<a class="nav-link" href="/location">Location</a>
 					</li>
+
+
+					<li class="nav-item ">
+						<a class="nav-link dropleft" href="javascript:void(0)">
+							<i class="fa fa-search" data-toggle="dropdown"></i>
+							<div class="dropdown-menu" style="top: 3rem;width: 500px;max-width: 350px;right: 0;">
+								<div class="dropdown-item p-0 px-2">
+									<input type="search" id="searchInput" class="form-control" placeholder="Type something here" value="<?= request()->input('query')?:'' ?>">
+								</div>
+							</div>
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>
